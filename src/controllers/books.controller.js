@@ -56,8 +56,11 @@ export async function getBookById(req, res) {
 export async function createBook(req, res) {
   const { title, author, year } = req.body
   try {
-    await addBook(title, author, year)
-    res.status(201).json('Book added successfully')
+    const book = await addBook(title, author, year)
+    res.status(201).json({
+      message: 'Book added successfully',
+      data: book
+    })
   } catch (error) {
     console.log(error)
     return res.status(500).json({ error: 'Internal error' })
@@ -74,8 +77,11 @@ export async function updateBook(req, res) {
   const { bookId } = req.params
   const { title, author, year } = req.body
   try {
-    await editBook(bookId, title, author, year)
-    res.status(200).json('Book updated successfully')
+    const book = await editBook(bookId, title, author, year)
+    res.status(200).json({
+      message: 'Book updated successfully',
+      data: book
+    })
   } catch (error) {
     console.log(error)
     if (error.message === 'Book not found') {

@@ -1,6 +1,6 @@
 # Books API
 
-CRUD básico de libros para practicar documentación con JSDoc y Swagger.
+CRUD básico de libros para practicar documentación y testing.
 
 
 ## Tech Stack
@@ -8,4 +8,6 @@ CRUD básico de libros para practicar documentación con JSDoc y Swagger.
 **Server:** Node, Express, PostgreSQL.
 
 **Documentación:** JSDoc, Swagger-jsdoc, Swagger-ui-express.
+
+**Testing:** Jest, Supertest
 

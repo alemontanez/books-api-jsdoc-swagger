@@ -26,7 +26,7 @@ export async function findBookById(bookId) {
   if (result.rows.length <= 0) {
     throw new Error('Book not found')
   }
-  return result.rows
+  return result.rows[0]
 }
 
 /**
@@ -36,10 +36,11 @@ export async function findBookById(bookId) {
  * @param {number|string} year - Año de publicación del libro.
  */
 export async function addBook(title, author, year) {
-  await pool.query(
-    'INSERT INTO books (title, author, year) VALUES ($1, $2, $3)',
+  const result = await pool.query(
+    'INSERT INTO books (title, author, year) VALUES ($1, $2, $3) RETURNING *',
     [title, author, year]
   )
+  return result.rows[0]
 }
 
 /**
@@ -51,15 +52,16 @@ export async function addBook(title, author, year) {
  * @throws {Error} Si no encuentra el libro.
  */
 export async function editBook(bookId, title, author, year) {
-  const result = await pool.query(
+  const book = await pool.query(
     'SELECT * FROM books WHERE id = $1',
     [bookId]
   )
-  if (result.rows.length <= 0) throw new Error('Book not found')
-  await pool.query(
-    'UPDATE books SET title = $1, author = $2, year = $3 WHERE id = $4',
+  if (book.rows.length <= 0) throw new Error('Book not found')
+  const result = await pool.query(
+    'UPDATE books SET title = $1, author = $2, year = $3 WHERE id = $4 RETURNING *',
     [title, author, year, bookId]
   )
+  return result.rows[0]
 }
 
 /**
