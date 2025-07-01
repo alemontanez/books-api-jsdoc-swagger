@@ -3,7 +3,7 @@ import morgan from 'morgan'
 import pool from './config/db.js'
 import swaggerUI from 'swagger-ui-express'
 import { swaggerSpec } from './config/swagger.js'
-import bookRoutes from './routes/books.routes.js'
+import bookRoutes from './routes/book.routes.js'
 import path from 'path'
 import { fileURLToPath } from 'url'
 

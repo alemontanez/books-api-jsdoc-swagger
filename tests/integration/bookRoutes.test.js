@@ -1,5 +1,5 @@
-import app from '../src/app.js'
-import db from '../src/config/db.js'
+import app from '../../src/app.js'
+import db from '../../src/config/db.js'
 import request from 'supertest'
 
 // Tests para ruta GET /books
@@ -70,6 +70,38 @@ describe('POST /api/books', () => {
     expect(dbCheck.rows.length).toBe(1)
     expect(dbCheck.rows[0].title).toBe(newBook.title)
   })
+
+  // Validaciones de datos
+  test('debería devolver status 400 si falta el título', async () => {
+    const newBook = {
+      author: 'Autor nuevo',
+      year: 2025
+    }
+
+    const res = await request(app)
+      .post('/api/books')
+      .send(newBook)
+      .set('Content-Type', 'application/json')
+
+    expect(res.statusCode).toBe(400)
+    expect(res.body).toHaveProperty('error', ['Title is required'])
+  })
+
+  test('debería devolver status 400 si el año es negativo', async () => {
+    const newBook = {
+      title: 'Libro nuevo',
+      author: 'Autor nuevo',
+      year: -100
+    }
+
+    const res = await request(app)
+      .post('/api/books')
+      .send(newBook)
+      .set('Content-Type', 'application/json')
+
+    expect(res.statusCode).toBe(400)
+    expect(res.body).toHaveProperty('error', ['Year must be a positive integer'])
+  })
 })
 
 // Tests para ruta PUT /books/:bookId
@@ -110,6 +142,38 @@ describe('PUT /api/books/:bookId', () => {
       [bookId]
     )
     expect(checkDb.rows[0].title).toBe(updatedData.title)
+  })
+
+    // Validaciones de datos
+  test('debería devolver status 400 si falta el título', async () => {
+    const updatedBook = {
+      author: 'Autor actualizado',
+      year: 2025
+    }
+
+    const res = await request(app)
+      .post('/api/books')
+      .send(updatedBook)
+      .set('Content-Type', 'application/json')
+
+    expect(res.statusCode).toBe(400)
+    expect(res.body).toHaveProperty('error', ['Title is required'])
+  })
+
+  test('debería devolver status 400 si el año es negativo', async () => {
+    const updatedBook = {
+      title: 'Libro actualizado',
+      author: 'Autor actualizado',
+      year: -100
+    }
+
+    const res = await request(app)
+      .post('/api/books')
+      .send(updatedBook)
+      .set('Content-Type', 'application/json')
+
+    expect(res.statusCode).toBe(400)
+    expect(res.body).toHaveProperty('error', ['Year must be a positive integer'])
   })
 
   test('debería devolver status 404 si el libro no existe', async () => {

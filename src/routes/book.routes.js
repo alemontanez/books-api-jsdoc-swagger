@@ -1,11 +1,13 @@
 import { Router } from 'express'
+import { validateSchema } from '../middlewares/schema.middleware.js'
+import { bookSchema } from '../schemas/book.schema.js'
 import {
   getBooks,
   getBookById,
   createBook,
   updateBook,
   deleteBook
-} from '../controllers/books.controller.js'
+} from '../controllers/book.controller.js'
 
 const router = Router()
 
@@ -26,6 +28,25 @@ const router = Router()
  *           type: integer
  *       example:
  *         id: 1
+ *         title: "Cien años de soledad"
+ *         author: "Gabriel García Márquez"
+ *         year: 1967
+ */
+
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     BookPayload:
+ *       type: object
+ *       properties:
+ *         title:
+ *           type: string
+ *         author:
+ *           type: string
+ *         year:
+ *           type: integer
+ *       example:
  *         title: "Cien años de soledad"
  *         author: "Gabriel García Márquez"
  *         year: 1967
@@ -96,14 +117,14 @@ router.get('/:bookId', getBookById)
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/Book'
+ *             $ref: '#/components/schemas/BookPayload'
  *     responses:
  *       201:
  *         description: Libro creado
  *       500:
  *         description: Error interno del servidor
  */
-router.post('/', createBook)
+router.post('/',validateSchema(bookSchema), createBook)
 
 /**
  * @swagger
@@ -123,7 +144,7 @@ router.post('/', createBook)
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/Book'
+ *             $ref: '#/components/schemas/BookPayload'
  *     responses:
  *       200:
  *         description: Libro actualizado
@@ -132,7 +153,7 @@ router.post('/', createBook)
  *       500:
  *         description: Error interno del servidor
  */
-router.put('/:bookId', updateBook)
+router.put('/:bookId', validateSchema(bookSchema), updateBook)
 
 /**
  * @swagger

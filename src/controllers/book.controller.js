@@ -4,7 +4,7 @@ import {
   findAllBooks,
   findBookById,
   removeBook
-} from '../services/books.service.js'
+} from '../services/book.service.js'
 
 /**
  * Controladores del modelo Books
