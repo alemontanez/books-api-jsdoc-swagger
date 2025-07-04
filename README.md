@@ -1,13 +1,13 @@
 # Books API
 
-CRUD básico de libros para practicar documentación y testing.
+CRUD básico de libros para practicar documentación, testing y TypeScript.
 
 
 ## Tech Stack
 
-**Server:** Node, Express, PostgreSQL.
+**Server:** Node, TypeScript, Express, PostgreSQL.
 
 **Documentación:** JSDoc, Swagger-jsdoc, Swagger-ui-express.
 
-**Testing:** Jest, Supertest
+**Testing:** Jest, Supertest, TS-Jest
 

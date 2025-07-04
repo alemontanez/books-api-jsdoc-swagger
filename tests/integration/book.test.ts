@@ -1,5 +1,5 @@
-import app from '../../src/app.js'
-import db from '../../src/config/db.js'
+import app from '../../src/app'
+import db from '../../src/config/db'
 import request from 'supertest'
 
 // Tests para ruta GET /books
@@ -13,7 +13,7 @@ describe('GET /api/books', () => {
 
 // Tests para ruta GET /books/:bookId
 describe('GET /api/books/:bookId', () => {
-  let insertedBookId
+  let insertedBookId: number | string
 
   beforeEach(async () => {
     const result = await db.query(
@@ -106,7 +106,7 @@ describe('POST /api/books', () => {
 
 // Tests para ruta PUT /books/:bookId
 describe('PUT /api/books/:bookId', () => {
-  let bookId
+  let bookId: number | string
 
   beforeEach(async () => {
     const result = await db.query(
@@ -195,7 +195,7 @@ describe('PUT /api/books/:bookId', () => {
 
 // Tests para ruta DELETE /books/:bookId
 describe('DELETE /api/books/bookId', () => {
-  let bookId
+  let bookId: number
 
   beforeEach(async () => {
     const result = await db.query(

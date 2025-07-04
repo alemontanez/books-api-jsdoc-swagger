@@ -1,13 +1,13 @@
 import { Router } from 'express'
-import { validateSchema } from '../middlewares/schema.middleware.js'
-import { bookSchema } from '../schemas/book.schema.js'
+import { validateSchema } from '../middlewares/schema.middleware'
+import { bookSchema } from '../schemas/book.schema'
 import {
   getBooks,
   getBookById,
   createBook,
   updateBook,
   deleteBook
-} from '../controllers/book.controller.js'
+} from '../controllers/book.controller'
 
 const router = Router()
 

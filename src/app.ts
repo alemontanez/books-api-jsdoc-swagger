@@ -1,18 +1,16 @@
-import express from 'express'
+import express, { Response, Request, Application } from 'express'
 import morgan from 'morgan'
-import pool from './config/db.js'
+import pool from './config/db'
 import swaggerUI from 'swagger-ui-express'
-import { swaggerSpec } from './config/swagger.js'
-import bookRoutes from './routes/book.routes.js'
-import path from 'path'
-import { fileURLToPath } from 'url'
+import { swaggerSpec } from './config/swagger'
+import bookRoutes from './routes/book.routes'
 
-const app = express()
+const app: Application = express()
 
 app.use(express.json())
 app.use(morgan('dev'))
 
-app.get('/ping', async (req, res) => {
+app.get('/ping', async (_req: Request, res: Response) => {
   try {
     const result = await pool.query('SELECT NOW()')
     res.json({ ok: true, now: result.rows[0] })
@@ -23,10 +21,6 @@ app.get('/ping', async (req, res) => {
 })
 
 app.use('/api/books', bookRoutes)
-
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = path.dirname(__filename)
-app.use('/docs', express.static(path.join(__dirname, '..', 'docs')))
 
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerSpec))
 
