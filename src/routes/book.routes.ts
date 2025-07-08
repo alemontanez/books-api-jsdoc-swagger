@@ -1,6 +1,7 @@
 import { Router } from 'express'
 import { validateSchema } from '../middlewares/schema.middleware'
-import { bookSchema } from '../schemas/book.schema'
+import { validateId } from '../middlewares/idValidator.middleware'
+import { BookSchema } from '../schemas/book.schema'
 import {
   getBooks,
   getBookById,
@@ -104,7 +105,7 @@ router.get('/', getBooks)
  *       500:
  *         description: Error interno del servidor
  */
-router.get('/:bookId', getBookById)
+router.get('/:bookId', validateId(), getBookById)
 
 /**
  * @swagger
@@ -124,7 +125,7 @@ router.get('/:bookId', getBookById)
  *       500:
  *         description: Error interno del servidor
  */
-router.post('/',validateSchema(bookSchema), createBook)
+router.post('/',validateSchema(BookSchema), createBook)
 
 /**
  * @swagger
@@ -153,7 +154,7 @@ router.post('/',validateSchema(bookSchema), createBook)
  *       500:
  *         description: Error interno del servidor
  */
-router.put('/:bookId', validateSchema(bookSchema), updateBook)
+router.put('/:bookId', validateId(), validateSchema(BookSchema), updateBook)
 
 /**
  * @swagger
@@ -176,6 +177,6 @@ router.put('/:bookId', validateSchema(bookSchema), updateBook)
  *       500:
  *         description: Error interno del servidor
  */
-router.delete('/:bookId', deleteBook)
+router.delete('/:bookId', validateId(), deleteBook)
 
 export default router

@@ -22,7 +22,7 @@ import {
  */
 export async function getBooks(_req: Request, res: Response): Promise<void> {
   try {
-    const books: IBook[] = await findAllBooks()
+    const books = await findAllBooks()
     res.json(books)
     return
   } catch (error) {
@@ -41,7 +41,7 @@ export async function getBooks(_req: Request, res: Response): Promise<void> {
 export async function getBookById(req: Request, res: Response): Promise<void> {
   const { bookId } = req.params
   try {
-    const book: IBook = await findBookById(bookId)
+    const book = await findBookById(bookId)
     res.json(book)
     return
   } catch (error) {

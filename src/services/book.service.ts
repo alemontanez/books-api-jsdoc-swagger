@@ -19,10 +19,10 @@ export async function findAllBooks(): Promise<IBook[]> {
 /**
  * Obtiene un libro por id desde la base de datos.
  * @param {number|string} bookId - Id del libro a buscar.
- * @returns {Promise<IBook>} El libro encontrado.
+ * @returns {Promise<IBook | null>} El libro encontrado.
  * @throws {Error} Si no encuentra el libro.
  */
-export async function findBookById(bookId: number | string): Promise<IBook> {
+export async function findBookById(bookId: string): Promise<IBook | null> {
   const result: QueryResult<IBook> = await pool.query('SELECT * FROM books WHERE id = $1', [bookId])
   if (result.rows.length <= 0) {
     throw new Error('Book not found')
