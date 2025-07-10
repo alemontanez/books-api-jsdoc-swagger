@@ -9,7 +9,8 @@
     "build": "tsc",
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --verbose --silent",
     "test:integration": "node --experimental-vm-modules node_modules/jest/bin/jest.js tests/integration",
-    "test:unit": "node --experimental-vm-modules node_modules/jest/bin/jest.js tests/unit"
+    "test:unit": "node --experimental-vm-modules node_modules/jest/bin/jest.js tests/unit",
+    "test:one": "node --experimental-vm-modules node_modules/jest/bin/jest.js --verbose --silent"
   },
   "keywords": [],
   "author": "",

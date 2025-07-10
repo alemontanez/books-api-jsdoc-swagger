@@ -1,6 +1,6 @@
 # Books API
 
-CRUD básico de libros para practicar documentación, testing y TypeScript.
+CRUD básico de libros para practicar documentación, testing de integración y unitario, y TypeScript.
 
 
 ## Tech Stack
